@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,13 +23,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PullRequest>>,OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PullRequest>>, OnItemClickListener {
 
     private static final String PULL_REQUEST_URL = "https://api.github.com/repos/mit-cml/appinventor-sources/pulls";
 
     private static final int PULL_REQUEST_LOADER_ID = 0;
 
     private RecyclerView mRecyclerView;
+    private ProgressBar mProgressbar;
+    private TextView mNoInternetConnectionTextView;
     private RecyclerView.LayoutManager mLayoutManager;
     private PrListAdapter mAdapter;
     private ArrayList<PullRequest> mPullRequests = new ArrayList<>();
@@ -36,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mProgressbar = findViewById(R.id.progress_bar_main_screen);
+        mNoInternetConnectionTextView = findViewById(R.id.no_internet_connection_text_view);
 
         // Bind the recyclerView
         mRecyclerView = findViewById(R.id.recycler_view);
@@ -52,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (isConnectedToNetwork()) {
             getSupportLoaderManager().initLoader(PULL_REQUEST_LOADER_ID, null, this);
         } else {
-            //TODO Show no internet connection
+            mProgressbar.setVisibility(View.GONE);
+            mNoInternetConnectionTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -75,6 +83,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     @Override
     public void onLoadFinished(@NonNull Loader<List<PullRequest>> loader, List<PullRequest> requests) {
+
+        mProgressbar.setVisibility(View.GONE);
         // update the list of pull request and notify adapter
         mPullRequests.clear();
         if (requests != null && !requests.isEmpty()) {
@@ -108,8 +118,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onClick(View view, int position) {
         PullRequest currentPullRequest = mPullRequests.get(position);
-        Intent detailsActivityIntent = new Intent(this,DetailActivity.class);
-        detailsActivityIntent.putExtra("PR",currentPullRequest.getDiffUrl());
+        Intent detailsActivityIntent = new Intent(this, DetailActivity.class);
+        detailsActivityIntent.putExtra("PR", currentPullRequest.getDiffUrl());
         startActivity(detailsActivityIntent);
     }
 }
