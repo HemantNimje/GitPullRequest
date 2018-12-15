@@ -4,10 +4,12 @@ public class PullRequest {
 
     private String mTitle;
     private String mAvatarUrl;
+    private String mDiffUrl;
 
-    public PullRequest(String title, String avatarUrl) {
+    public PullRequest(String title, String avatarUrl, String diffUrl) {
         mTitle = title;
         mAvatarUrl = avatarUrl;
+        mDiffUrl = diffUrl;
     }
 
     public void setTitle(String title) {
@@ -24,5 +26,13 @@ public class PullRequest {
 
     public String getAvatarUrl() {
         return mAvatarUrl;
+    }
+
+    public void setDiffUrl(String url) {
+        mDiffUrl = url;
+    }
+
+    public String getDiffUrl() {
+        return mDiffUrl;
     }
 }

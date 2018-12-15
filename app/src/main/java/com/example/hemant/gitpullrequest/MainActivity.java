@@ -1,6 +1,7 @@
 package com.example.hemant.gitpullrequest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import androidx.loader.content.Loader;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PullRequest>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PullRequest>>,OnItemClickListener {
 
     private static final String PULL_REQUEST_URL = "https://api.github.com/repos/mit-cml/appinventor-sources/pulls";
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mAdapter = new PrListAdapter(getApplicationContext(), mPullRequests);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setClickListener(this);
 
         // Load the information when connected to internet else notify user about network loss.
         if (isConnectedToNetwork()) {
@@ -84,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     @Override
     public void onLoaderReset(@NonNull Loader<List<PullRequest>> loader) {
-        mAdapter.clear();
+        mPullRequests.clear();
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -100,4 +105,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
+    @Override
+    public void onClick(View view, int position) {
+        PullRequest currentPullRequest = mPullRequests.get(position);
+        Intent detailsActivityIntent = new Intent(this,DetailActivity.class);
+        detailsActivityIntent.putExtra("PR",currentPullRequest.getDiffUrl());
+        startActivity(detailsActivityIntent);
+    }
 }

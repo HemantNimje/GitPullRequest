@@ -158,7 +158,12 @@ public class QueryUtils {
                 JSONObject userObject = currentPr.getJSONObject("user");
                 String avatarUrl = userObject.getString("avatar_url");
 
-                PullRequest pullRequest = new PullRequest(title,avatarUrl);
+                /************
+                 * Diff URL *
+                 ************/
+                String diffUrl = currentPr.getString("diff_url");
+
+                PullRequest pullRequest = new PullRequest(title,avatarUrl,diffUrl);
 
                 pullRequests.add(pullRequest);
             }

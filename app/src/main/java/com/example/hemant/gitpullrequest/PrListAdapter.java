@@ -6,11 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +24,7 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
 
     private Context mContext;
     private List<PullRequest> mPullRequests;
+    private OnItemClickListener mClickListener;
 
     public PrListAdapter(Context context, ArrayList<PullRequest> pullRequests) {
         mContext = context;
@@ -52,7 +56,7 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
         return mPullRequests.size();
     }
 
-    public class PrListAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class PrListAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView titleView;
         CircleImageView avatarView;
@@ -61,14 +65,18 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
             super(itemView);
             titleView = itemView.findViewById(R.id.list_item_title);
             avatarView = itemView.findViewById(R.id.list_item_avatar);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mClickListener != null) {
+                mClickListener.onClick(v, getAdapterPosition());
+            }
         }
     }
 
-    public void clear() {
-        mPullRequests.clear();
-    }
-
-    public void addAll(List<PullRequest> pullRequests) {
-        mPullRequests = pullRequests;
+    public void setClickListener(OnItemClickListener listener) {
+        mClickListener = listener;
     }
 }
