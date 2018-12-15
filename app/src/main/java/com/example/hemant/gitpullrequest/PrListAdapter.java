@@ -4,11 +4,15 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import de.hdodenhof.circleimageview.CircleImageView;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +41,9 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
 
         String title = currentPullRequest.getTitle();
         holder.titleView.setText(title);
+
+        String avatarUrl = currentPullRequest.getAvatarUrl();
+        Picasso.with(mContext).load(Uri.parse(avatarUrl)).into(holder.avatarView);
     }
 
     @Override
@@ -48,10 +55,12 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
     public class PrListAdapterViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleView;
+        CircleImageView avatarView;
 
         public PrListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.list_item_title);
+            avatarView = itemView.findViewById(R.id.list_item_avatar);
         }
     }
 

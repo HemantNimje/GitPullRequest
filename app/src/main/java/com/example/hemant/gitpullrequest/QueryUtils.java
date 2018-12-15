@@ -146,12 +146,19 @@ public class QueryUtils {
             for (int i = 0; i <= jsonArray.length(); i++) {
                 JSONObject currentPr = jsonArray.getJSONObject(i);
 
-                /********
-                 * Title*
-                 *******/
+                /*********
+                 * Title *
+                 *********/
                 String title = currentPr.getString("title");
 
-                PullRequest pullRequest = new PullRequest(title);
+                /**********
+                 * Avatar *
+                 **********/
+
+                JSONObject userObject = currentPr.getJSONObject("user");
+                String avatarUrl = userObject.getString("avatar_url");
+
+                PullRequest pullRequest = new PullRequest(title,avatarUrl);
 
                 pullRequests.add(pullRequest);
             }
