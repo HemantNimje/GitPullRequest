@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
@@ -34,10 +35,16 @@ public class DiffAdapter extends RecyclerView.Adapter<DiffAdapter.DiffAdapterVie
     @Override
     public void onBindViewHolder(@NonNull DiffAdapterViewHolder holder, int position) {
         String diffLine = mDiffLines.get(position);
-
-        holder.fromTextView.setText(diffLine);
-        holder.toTextView.setText(diffLine);
-
+        if (diffLine.startsWith("-")) {
+            holder.fromTextView.setText(diffLine);
+            holder.toTextView.setText("");
+        } else if (diffLine.startsWith("+")) {
+            holder.fromTextView.setText("");
+            holder.toTextView.setText(diffLine);
+        } else if (diffLine.startsWith(" ") || diffLine.startsWith("\t")) {
+            holder.fromTextView.setText(diffLine);
+            holder.toTextView.setText(diffLine);
+        }
     }
 
     @Override
