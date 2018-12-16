@@ -48,6 +48,9 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
 
         String avatarUrl = currentPullRequest.getAvatarUrl();
         Picasso.with(mContext).load(Uri.parse(avatarUrl)).into(holder.avatarView);
+
+        int issueNumber = currentPullRequest.getIssueNumber();
+        holder.issueNumberView.setText("#".concat(String.valueOf(issueNumber)));
     }
 
     @Override
@@ -60,11 +63,13 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
 
         TextView titleView;
         CircleImageView avatarView;
+        TextView issueNumberView;
 
         public PrListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.list_item_title);
             avatarView = itemView.findViewById(R.id.list_item_avatar);
+            issueNumberView = itemView.findViewById(R.id.list_item_issue_number);
             itemView.setOnClickListener(this);
         }
 

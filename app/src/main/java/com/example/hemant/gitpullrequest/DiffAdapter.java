@@ -37,18 +37,22 @@ public class DiffAdapter extends RecyclerView.Adapter<DiffAdapter.DiffAdapterVie
         String diffLine = mDiffLines.get(position);
 
         //TODO use better regex in future to optimize the binding of views
-        if (diffLine.startsWith("---") || diffLine.startsWith("+++")){
+        if (diffLine.startsWith("---") || diffLine.startsWith("+++")) {
             holder.fromTextView.setText(diffLine);
             holder.toTextView.setText("");
-        }else if (diffLine.startsWith("-")) {
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        } else if (diffLine.startsWith("-")) {
             holder.fromTextView.setText(diffLine);
             holder.toTextView.setText("");
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.red_200));
         } else if (diffLine.startsWith("+")) {
             holder.fromTextView.setText("");
             holder.toTextView.setText(diffLine);
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.green_200));
         } else if (diffLine.startsWith(" ") || diffLine.startsWith("\t")) {
             holder.fromTextView.setText(diffLine);
             holder.toTextView.setText(diffLine);
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.white));
         }
     }
 

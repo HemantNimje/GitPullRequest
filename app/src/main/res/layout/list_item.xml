@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="72dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/list_item_avatar"
@@ -24,19 +24,30 @@
         android:id="@+id/list_item_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:ellipsize="end"
-        android:fontFamily="@font/roboto_regular"
-        android:maxLines="2"
+        android:fontFamily="@font/roboto_medium"
+        android:maxLines="1"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/list_item_issue_number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/list_item_avatar"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="TextView" />
 
+    <TextView
+        android:id="@+id/list_item_issue_number"
+        android:layout_width="0dp"
+        android:layout_height="17dp"
+        android:fontFamily="@font/roboto_regular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/list_item_title"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/list_item_title"
+        app:layout_constraintTop_toBottomOf="@+id/list_item_title"
+        tools:text="#1423" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

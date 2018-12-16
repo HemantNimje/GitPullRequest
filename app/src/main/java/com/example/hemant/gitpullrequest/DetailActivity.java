@@ -34,10 +34,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         setContentView(R.layout.activity_detail);
         diffUrl = getIntent().getStringExtra("PR");
 
-
-        screenRotationRequestTextView = findViewById(R.id.screen_rotation_request_text);
-        screenRotationRequestTextView.setVisibility(View.GONE);
-
         mRecyclerView = findViewById(R.id.recycler_view_detail_screen);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
@@ -49,7 +45,6 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         if (NetworkUtils.isConnectedToNetwork(getApplicationContext())) {
             getSupportLoaderManager().initLoader(DIFF_REQUEST_LOADER_ID, null, this);
         }
-
 
         TextView textView = findViewById(R.id.diff_url);
         textView.setText(diffUrl);
@@ -67,7 +62,7 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoadFinished(@NonNull Loader<List<String>> loader, List<String> data) {
         mDiffLines.clear();
-        if (data != null && !data.isEmpty()){
+        if (data != null && !data.isEmpty()) {
             mDiffLines.addAll(data);
             mAdapter.notifyDataSetChanged();
         }

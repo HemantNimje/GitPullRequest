@@ -6,7 +6,8 @@ import android.net.NetworkInfo;
 
 public class NetworkUtils {
 
-    private NetworkUtils(){}
+    private NetworkUtils() {
+    }
 
     /**
      * Checks if connected to the network

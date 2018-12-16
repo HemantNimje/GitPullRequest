@@ -165,7 +165,13 @@ public class QueryUtils {
                  ************/
                 String diffUrl = currentPr.getString("diff_url");
 
-                PullRequest pullRequest = new PullRequest(title, avatarUrl, diffUrl);
+                /****************
+                 * Issue Number *
+                 ****************/
+
+                int issueNumber = currentPr.getInt("number");
+
+                PullRequest pullRequest = new PullRequest(title, avatarUrl, diffUrl, issueNumber);
 
                 pullRequests.add(pullRequest);
             }
@@ -198,13 +204,13 @@ public class QueryUtils {
         return diffData;
     }
 
-    public static String fetch(String requestUrl){
+    public static String fetch(String requestUrl) {
         URL url = createUrl(requestUrl);
 
         String response = null;
-        try{
+        try {
             response = readFromInputStream(url.openStream());
-        }catch (Exception e){
+        } catch (Exception e) {
             // Error parsing result from url
             e.printStackTrace();
         }

@@ -4,4 +4,6 @@
     <string name="no_internet_connection">No internet connection</string>
     <string name="from">From</string>
     <string name="to">To</string>
+    <string name="old_file">Old file</string>
+    <string name="new_file">New file</string>
 </resources>
