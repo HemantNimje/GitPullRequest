@@ -35,7 +35,12 @@ public class DiffAdapter extends RecyclerView.Adapter<DiffAdapter.DiffAdapterVie
     @Override
     public void onBindViewHolder(@NonNull DiffAdapterViewHolder holder, int position) {
         String diffLine = mDiffLines.get(position);
-        if (diffLine.startsWith("-")) {
+
+        //TODO use better regex in future to optimize the binding of views
+        if (diffLine.startsWith("---") || diffLine.startsWith("+++")){
+            holder.fromTextView.setText(diffLine);
+            holder.toTextView.setText("");
+        }else if (diffLine.startsWith("-")) {
             holder.fromTextView.setText(diffLine);
             holder.toTextView.setText("");
         } else if (diffLine.startsWith("+")) {
