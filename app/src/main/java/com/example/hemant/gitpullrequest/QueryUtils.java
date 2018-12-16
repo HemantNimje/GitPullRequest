@@ -123,6 +123,8 @@ public class QueryUtils {
                 output.append(line);
                 line = reader.readLine();
             }
+            inputStreamReader.close();
+            reader.close();
         }
         return output.toString();
     }
@@ -163,7 +165,7 @@ public class QueryUtils {
                  ************/
                 String diffUrl = currentPr.getString("diff_url");
 
-                PullRequest pullRequest = new PullRequest(title,avatarUrl,diffUrl);
+                PullRequest pullRequest = new PullRequest(title, avatarUrl, diffUrl);
 
                 pullRequests.add(pullRequest);
             }
@@ -172,5 +174,40 @@ public class QueryUtils {
         }
 
         return pullRequests;
+    }
+
+    public static List<String> fetchDiffData(String requestUrl) {
+        URL url = createUrl(requestUrl);
+
+        InputStream inputStream;
+        List<String> diffData = new ArrayList<>();
+        try {
+            inputStream = url.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line = reader.readLine();
+
+            while (line != null) {
+                diffData.add(line);
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (Exception e) {
+            // Error fetching diff data from the "diff_url"
+        }
+        return diffData;
+    }
+
+    public static String fetch(String requestUrl){
+        URL url = createUrl(requestUrl);
+
+        String response = null;
+        try{
+            response = readFromInputStream(url.openStream());
+        }catch (Exception e){
+            // Error parsing result from url
+            e.printStackTrace();
+        }
+        return response;
     }
 }

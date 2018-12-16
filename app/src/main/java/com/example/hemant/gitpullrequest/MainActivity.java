@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<PullRequest>>, OnItemClickListener {
 
-    private static final String PULL_REQUEST_URL = "https://api.github.com/repos/mit-cml/appinventor-sources/pulls";
+    private static final String PULL_REQUEST_URL = "https://api.github.com/repos/mit-cml/appinventor-sources/pulls?state=open";
 
     private static final int PULL_REQUEST_LOADER_ID = 0;
 
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mNoInternetConnectionTextView = findViewById(R.id.no_internet_connection_text_view);
 
         // Bind the recyclerView
-        mRecyclerView = findViewById(R.id.recycler_view);
+        mRecyclerView = findViewById(R.id.recycler_view_main_screen);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
