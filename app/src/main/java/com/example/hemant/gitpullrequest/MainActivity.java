@@ -1,9 +1,6 @@
 package com.example.hemant.gitpullrequest;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -29,10 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int PULL_REQUEST_LOADER_ID = 0;
 
-    private RecyclerView mRecyclerView;
     private ProgressBar mProgressbar;
-    private TextView mNoInternetConnectionTextView;
-    private RecyclerView.LayoutManager mLayoutManager;
     private PrListAdapter mAdapter;
     private ArrayList<PullRequest> mPullRequests = new ArrayList<>();
 
@@ -42,12 +36,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_main);
 
         mProgressbar = findViewById(R.id.progress_bar_main_screen);
-        mNoInternetConnectionTextView = findViewById(R.id.no_internet_connection_text_view);
+        TextView mNoInternetConnectionTextView = findViewById(R.id.no_internet_connection_text_view);
 
         // Bind the recyclerView
-        mRecyclerView = findViewById(R.id.recycler_view_main_screen);
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_main_screen);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new PrListAdapter(getApplicationContext(), mPullRequests);
@@ -55,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mAdapter.setClickListener(this);
 
-        // Load the information when connected to internet else notify user about network loss.
-        if (isConnectedToNetwork()) {
+        // Load the information if connected to internet else notify user about network loss.
+        if (NetworkUtils.isConnectedToNetwork(getApplicationContext())) {
             getSupportLoaderManager().initLoader(PULL_REQUEST_LOADER_ID, null, this);
         } else {
             mProgressbar.setVisibility(View.GONE);
@@ -65,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
-     * Called when the loader is created.
+     * Create new instance of loader to fetch the data
      */
     @NonNull
     @Override
@@ -79,12 +73,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
-     * Called when loader finish fetching data
+     * Update the pullRequestList when loader is finished fetching data and notify adapter to
+     * reflect UI
      */
     @Override
     public void onLoadFinished(@NonNull Loader<List<PullRequest>> loader, List<PullRequest> requests) {
 
         mProgressbar.setVisibility(View.GONE);
+
         // update the list of pull request and notify adapter
         mPullRequests.clear();
         if (requests != null && !requests.isEmpty()) {
@@ -94,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
-     * Called when the loader is reset
+     * Clear the pullRequestList on loader reset
      */
     @Override
     public void onLoaderReset(@NonNull Loader<List<PullRequest>> loader) {
@@ -103,18 +99,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     /**
-     * Checks if connected to the network
-     *
-     * @return boolean which indicated if the device is connected to the internet
+     * Handle list item click
      */
-    public boolean isConnectedToNetwork() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-    }
-
     @Override
     public void onClick(View view, int position) {
         PullRequest currentPullRequest = mPullRequests.get(position);

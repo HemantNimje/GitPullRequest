@@ -8,6 +8,7 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp">
 
+    <!-- TextView for Old file -->
     <TextView
         android:id="@+id/from_text_view"
         android:layout_width="0dp"
@@ -23,6 +24,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/from" />
 
+    <!-- View separator -->
     <View
         android:id="@+id/view"
         android:layout_width="1dp"
@@ -33,6 +35,7 @@
         app:layout_constraintStart_toEndOf="@+id/from_text_view"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TextView for new file -->
     <TextView
         android:id="@+id/to_text_view"
         android:layout_width="0dp"

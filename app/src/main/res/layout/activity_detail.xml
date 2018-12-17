@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/diff_url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -23,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside">
 
+        <!-- Old file title -->
         <TextView
             android:id="@+id/from_text_view_title"
             android:layout_width="wrap_content"
@@ -36,6 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- View separator -->
         <View
             android:id="@+id/view2"
             android:layout_width="1dp"
@@ -49,6 +45,7 @@
             app:layout_constraintStart_toEndOf="@+id/from_text_view_title"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- New file title -->
         <TextView
             android:id="@+id/to_text_view_title"
             android:layout_width="wrap_content"
@@ -64,6 +61,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- RecyclerView for showing the difference between two files -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_detail_screen"
         style="@style/custom_vertical_scrollbar"
@@ -76,11 +74,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
+    <!-- Progress bar while data is loading -->
     <ProgressBar
         android:id="@+id/progress_bar_detail_screen"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

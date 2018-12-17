@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="72dp">
 
+    <!-- Avatar for the pull request -->
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/list_item_avatar"
         android:layout_width="48dp"
@@ -20,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Pull request title -->
     <TextView
         android:id="@+id/list_item_title"
         android:layout_width="0dp"
@@ -38,6 +40,7 @@
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="TextView" />
 
+    <!-- Issue number -->
     <TextView
         android:id="@+id/list_item_issue_number"
         android:layout_width="0dp"

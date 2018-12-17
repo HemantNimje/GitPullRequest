@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- RecyclerView for list of pull requests -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_main_screen"
         style="@style/custom_vertical_scrollbar"
@@ -16,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Progress bar while data is loading -->
     <ProgressBar
         android:id="@+id/progress_bar_main_screen"
         android:layout_width="64dp"
@@ -25,6 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- TextView to show no internet connection -->
     <TextView
         android:id="@+id/no_internet_connection_text_view"
         android:layout_width="wrap_content"

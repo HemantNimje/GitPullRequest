@@ -26,7 +26,7 @@ public class QueryUtils {
     }
 
     /**
-     * Used to fetch the PR(pull request) data
+     * Fetch the PR(pull request) data
      */
     public static List<PullRequest> fetchPrData(String requestUrl) {
 
@@ -38,9 +38,10 @@ public class QueryUtils {
             jsonResponse = makeHttpRequest(url);
         } catch (Exception e) {
             // Error making Http request
+            Log.e(LOG_TAG, "Error while making HTTP request for the fetching pull request " +
+                    "data");
         }
-
-        return extractDataFromJson(jsonResponse);
+        return extractListFromJson(jsonResponse);
     }
 
     /**
@@ -130,12 +131,12 @@ public class QueryUtils {
     }
 
     /**
-     * Extract data from the JSONResponse
+     * Extract data from the Pull Request JSONResponse
      *
      * @param pullRequestJSON
      * @return list of pullRequest
      */
-    private static List<PullRequest> extractDataFromJson(String pullRequestJSON) {
+    private static List<PullRequest> extractListFromJson(String pullRequestJSON) {
         if (TextUtils.isEmpty(pullRequestJSON)) {
             return null;
         }
@@ -168,7 +169,6 @@ public class QueryUtils {
                 /****************
                  * Issue Number *
                  ****************/
-
                 int issueNumber = currentPr.getInt("number");
 
                 PullRequest pullRequest = new PullRequest(title, avatarUrl, diffUrl, issueNumber);
@@ -177,11 +177,18 @@ public class QueryUtils {
             }
         } catch (JSONException e) {
             // Error parsing the JSON
+            Log.e(LOG_TAG, "Error while parsing pull request JSON");
         }
 
         return pullRequests;
     }
 
+    /**
+     * Fetch data from the diff_url for the pull request
+     *
+     * @param requestUrl url for the diff data
+     * @return List of String where each string contains a line from the retrieved diff data
+     */
     public static List<String> fetchDiffData(String requestUrl) {
         URL url = createUrl(requestUrl);
 
@@ -200,20 +207,8 @@ public class QueryUtils {
             reader.close();
         } catch (Exception e) {
             // Error fetching diff data from the "diff_url"
+            Log.e(LOG_TAG, "Error fetching diff data from diff_url");
         }
         return diffData;
-    }
-
-    public static String fetch(String requestUrl) {
-        URL url = createUrl(requestUrl);
-
-        String response = null;
-        try {
-            response = readFromInputStream(url.openStream());
-        } catch (Exception e) {
-            // Error parsing result from url
-            e.printStackTrace();
-        }
-        return response;
     }
 }

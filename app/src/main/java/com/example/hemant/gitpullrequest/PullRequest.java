@@ -1,5 +1,9 @@
 package com.example.hemant.gitpullrequest;
 
+/**
+ * P.O.J.O.(Plain Old Java Object) for pullRequest
+ */
+
 public class PullRequest {
 
     private String mTitle;

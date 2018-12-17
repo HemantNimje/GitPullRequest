@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class DetailActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<String>> {
 
-    private TextView screenRotationRequestTextView;
-    private RecyclerView mRecyclerView;
     private ProgressBar mProgressBar;
-    private RecyclerView.LayoutManager mLayoutManager;
     private DiffAdapter mAdapter;
     private ArrayList<String> mDiffLines = new ArrayList<>();
     private static final int DIFF_REQUEST_LOADER_ID = 0;
@@ -34,23 +30,28 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         setContentView(R.layout.activity_detail);
         diffUrl = getIntent().getStringExtra("PR");
 
-        mRecyclerView = findViewById(R.id.recycler_view_detail_screen);
+        mProgressBar = findViewById(R.id.progress_bar_detail_screen);
+
+        // Bind the recyclerView
+        RecyclerView mRecyclerView = findViewById(R.id.recycler_view_detail_screen);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         mAdapter = new DiffAdapter(getApplicationContext(), mDiffLines);
         mRecyclerView.setAdapter(mAdapter);
 
+        // Load the information if connected to internet.
         if (NetworkUtils.isConnectedToNetwork(getApplicationContext())) {
             getSupportLoaderManager().initLoader(DIFF_REQUEST_LOADER_ID, null, this);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
         }
-
-        TextView textView = findViewById(R.id.diff_url);
-        textView.setText(diffUrl);
-
     }
 
+    /**
+     * Create new instance of loader to fetch the data
+     */
     @NonNull
     @Override
     public Loader<List<String>> onCreateLoader(int id, @Nullable Bundle args) {
@@ -59,8 +60,16 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         return new DiffLoader(this, builder.toString());
     }
 
+    /**
+     * Update the pullRequestList when loader is finished fetching data and notify adapter to
+     * reflect UI
+     */
     @Override
     public void onLoadFinished(@NonNull Loader<List<String>> loader, List<String> data) {
+
+        mProgressBar.setVisibility(View.GONE);
+
+        // Update the list of difference and notify the DiffAdapter
         mDiffLines.clear();
         if (data != null && !data.isEmpty()) {
             mDiffLines.addAll(data);
@@ -68,6 +77,9 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
+    /**
+     * Clear the DiffList on loaderReset
+     */
     @Override
     public void onLoaderReset(@NonNull Loader<List<String>> loader) {
         mDiffLines.clear();
