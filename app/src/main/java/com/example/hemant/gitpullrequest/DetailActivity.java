@@ -1,7 +1,9 @@
 package com.example.hemant.gitpullrequest;
 
+import android.app.ActionBar;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,6 +30,13 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        // Set navigation up button
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         diffUrl = getIntent().getStringExtra("PR");
 
         mProgressBar = findViewById(R.id.progress_bar_detail_screen);
@@ -84,5 +93,15 @@ public class DetailActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(@NonNull Loader<List<String>> loader) {
         mDiffLines.clear();
         mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                break;
+        }
+        return true;
     }
 }
