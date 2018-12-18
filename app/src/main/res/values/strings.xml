@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">GitPullRequest</string>
-    <string name="change_screen_rotation_text">Please switch to landscape mode.</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="from">From</string>
     <string name="to">To</string>

@@ -84,7 +84,7 @@ public class QueryUtils {
             urlConnection.setRequestMethod("GET");
             urlConnection.connect();
 
-            Log.d(LOG_TAG, "++" + urlConnection.getResponseCode());
+            Log.d(LOG_TAG, "HttpRequest response code: " + urlConnection.getResponseCode());
 
             if (urlConnection.getResponseCode() == 200) {
                 inputStream = urlConnection.getInputStream();
@@ -146,7 +146,7 @@ public class QueryUtils {
         try {
             JSONArray jsonArray = new JSONArray(pullRequestJSON);
 
-            for (int i = 0; i <= jsonArray.length(); i++) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject currentPr = jsonArray.getJSONObject(i);
 
                 /*********
