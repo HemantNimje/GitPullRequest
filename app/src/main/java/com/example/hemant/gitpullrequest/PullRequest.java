@@ -11,7 +11,7 @@ public class PullRequest {
     private String mDiffUrl;
     private int mIssueNumber;
 
-    public PullRequest(String title, String avatarUrl, String diffUrl, int issueNumber) {
+    PullRequest(String title, String avatarUrl, String diffUrl, int issueNumber) {
         mTitle = title;
         mAvatarUrl = avatarUrl;
         mDiffUrl = diffUrl;
@@ -22,7 +22,7 @@ public class PullRequest {
         mTitle = title;
     }
 
-    public String getTitle() {
+    String getTitle() {
         return mTitle;
     }
 
@@ -30,7 +30,7 @@ public class PullRequest {
         mAvatarUrl = url;
     }
 
-    public String getAvatarUrl() {
+    String getAvatarUrl() {
         return mAvatarUrl;
     }
 
@@ -38,7 +38,7 @@ public class PullRequest {
         mDiffUrl = url;
     }
 
-    public String getDiffUrl() {
+    String getDiffUrl() {
         return mDiffUrl;
     }
 
@@ -46,7 +46,7 @@ public class PullRequest {
         mIssueNumber = number;
     }
 
-    public int getIssueNumber() {
+    int getIssueNumber() {
         return mIssueNumber;
     }
 }

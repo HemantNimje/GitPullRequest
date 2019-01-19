@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class NetworkUtils {
+class NetworkUtils {
 
     private NetworkUtils() {
     }
@@ -14,7 +14,7 @@ public class NetworkUtils {
      *
      * @return boolean which indicated if the device is connected to the internet
      */
-    public static boolean isConnectedToNetwork(Context context) {
+    static boolean isConnectedToNetwork(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();

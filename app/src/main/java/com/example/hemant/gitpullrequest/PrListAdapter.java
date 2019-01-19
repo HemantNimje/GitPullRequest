@@ -26,7 +26,7 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
     /**
      * Constructor
      */
-    public PrListAdapter(Context context, ArrayList<PullRequest> pullRequests) {
+    PrListAdapter(Context context, ArrayList<PullRequest> pullRequests) {
         mContext = context;
         mPullRequests = pullRequests;
     }
@@ -65,7 +65,7 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
         CircleImageView avatarView;
         TextView issueNumberView;
 
-        public PrListAdapterViewHolder(@NonNull View itemView) {
+        PrListAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             titleView = itemView.findViewById(R.id.list_item_title);
             avatarView = itemView.findViewById(R.id.list_item_avatar);
@@ -81,7 +81,7 @@ public class PrListAdapter extends RecyclerView.Adapter<PrListAdapter.PrListAdap
         }
     }
 
-    public void setClickListener(OnItemClickListener listener) {
+    void setClickListener(OnItemClickListener listener) {
         mClickListener = listener;
     }
 }

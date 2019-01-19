@@ -18,7 +18,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryUtils {
+class QueryUtils {
 
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
@@ -28,7 +28,7 @@ public class QueryUtils {
     /**
      * Fetch the PR(pull request) data
      */
-    public static List<PullRequest> fetchPrData(String requestUrl) {
+    static List<PullRequest> fetchPrData(String requestUrl) {
 
         URL url = createUrl(requestUrl);
 
@@ -133,7 +133,7 @@ public class QueryUtils {
     /**
      * Extract data from the Pull Request JSONResponse
      *
-     * @param pullRequestJSON
+     * @param pullRequestJSON JSON input
      * @return list of pullRequest
      */
     private static List<PullRequest> extractListFromJson(String pullRequestJSON) {
@@ -189,7 +189,7 @@ public class QueryUtils {
      * @param requestUrl url for the diff data
      * @return List of String where each string contains a line from the retrieved diff data
      */
-    public static List<String> fetchDiffData(String requestUrl) {
+    static List<String> fetchDiffData(String requestUrl) {
         URL url = createUrl(requestUrl);
 
         InputStream inputStream;

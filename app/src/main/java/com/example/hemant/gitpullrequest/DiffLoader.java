@@ -12,7 +12,7 @@ public class DiffLoader extends AsyncTaskLoader<List<String>> {
 
     private String mUrl;
 
-    public DiffLoader(@NonNull Context context, String url) {
+    DiffLoader(@NonNull Context context, String url) {
         super(context);
         mUrl = url;
     }
